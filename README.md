@@ -2,6 +2,15 @@
 Record AI learning experiences, mainly used to document pitfalls encountered, solutions, and some new knowledge.
 
 
+投资：
+火山方舟计划：￥9.9 + ￥40
+openai官方plus会员：￥158
+三方openai渠道——jiekou.ai：￥40
+三方生图模型渠道——creaa.ai：￥49 + ￥69 + ￥69
+minimax会员：￥119
+
+
+
 2026.3.10
 初次接触opencla
 
@@ -50,7 +59,7 @@ Record AI learning experiences, mainly used to document pitfalls encountered, so
 
 所以，想到换更聪明的大模型
 
-于是在当天晚上，充值了openai的会员
+于是在当天晚上，充值了openai的会员￥158
 
 但是这天并没有顺利接入openclaw
 
@@ -240,6 +249,71 @@ The AI service is temporarily overloaded. Please try again in a moment.
 
 3、技能的“输入”在一定程度下，也可能需要一定的改动，来达到更好的效果
 
+2026.3.21
+2026.3.22
+这两天在了解openclaw的架构
 
+1、gateway统一消息入口，不区分消息渠道，只区分会话id
+
+2、内置tool，包含：
+## 官方列出的工具（20个）
+
+| # | 工具 | 说明 |
+|---|------|------|
+| 1 | `apply_patch` | 批量文件补丁 |
+| 2 | `exec` | 执行Shell命令 |
+| 3 | `process` | 管理后台进程 |
+| 4 | `loop-detection` | 循环检测 |
+| 5 | `web_search` | 网页搜索 |
+| 6 | `web_fetch` | 网页内容抓取 |
+| 7 | `browser` | 浏览器控制 |
+| 8 | `canvas` | Canvas驱动 |
+| 9 | `nodes` | 节点管理 |
+| 10 | `image` | 图片分析 |
+| 11 | `pdf` | PDF分析 |
+| 12 | `message` | 消息发送 |
+| 13 | `cron` | 定时任务 |
+| 14 | `gateway` | 网关控制 |
+| 15 | `sessions_list` | 列出会话 |
+| 16 | `sessions_history` | 获取历史 |
+| 17 | `sessions_send` | 发送消息 |
+| 18 | `sessions_spawn` | 孵化子Agent |
+| 19 | `session_status` | 会话状态 |
+| 20 | `agents_list` | 列出Agent |
+
+## Tool Groups（9个）
+
+`runtime` · `fs` · `sessions` · `memory` · `web` · `ui` · `automation` · `messaging` · `nodes`
+
+---
+这些才是openclaw作为智能体的根基，               
+
+值得注意的是，原生的tool里面包含web和image相关的能力
+
+但遗憾的是，这些功能需要绑定特定的提供方和APIKey，而他们都是收费的，所以基本上与安装的skill一样需要收费
+
+还有记忆相关的Memory Search,不过据说他需要openai的APIKey才能使用
+
+为了解决记忆问题，我做了一个记忆系统，
+
+### 📋 Memory Update Rules
+
+**Trigger: User says "记录" / "记下" / "记住"**
+
+| File | Content Type |
+|------|---------------|
+| `memory/knowledge-base/reference-data.md` | API配置、代码片段、技术参数、参考数据 |
+| `memory/knowledge-base/research-notes.md` | 研究结论、搜索结果 |
+| `memory/preferences/coding-style.md` | 编码规范、工具偏好 |
+| `memory/preferences/communication.md` | 沟通方式、称呼偏好 |
+| `memory/projects/current-status.md` | 项目当前状态 |
+| `memory/projects/decisions.md` | 项目重要决策记录 |
+| `memory/projects/goals.md` | 项目目标清单 |
+
+**Trigger: User says "把它记录到你的长期记忆"**
+- Update `MEMORY.md`
+
+**Trigger: Cron daily at 23:00**
+- Update `memory/YYYY-MM-DD.md` with today's summary
 
 
