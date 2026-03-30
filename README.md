@@ -317,3 +317,6 @@ The AI service is temporarily overloaded. Please try again in a moment.
 - Update `memory/YYYY-MM-DD.md` with today's summary
 
 
+2026.3.30
+今天通过更新飞书插件，和手动授权（/feishu outh）解决了openclaw不能创建和编辑飞书文档的问题
+
